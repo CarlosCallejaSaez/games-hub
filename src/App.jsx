@@ -18,6 +18,7 @@ const App = () => {
   };
 
   return (
+
     <Routes>
       <Route path="/" element={<LoginForm />} />
       <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
@@ -41,6 +42,7 @@ const App = () => {
 
       
     </Routes>
+    
   );
 };
 

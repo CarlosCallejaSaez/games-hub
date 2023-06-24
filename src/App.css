@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color:red;
 }
 
 .logo {
@@ -70,3 +71,4 @@ button {
   font-size: 18px;
   cursor: pointer;
 }
+

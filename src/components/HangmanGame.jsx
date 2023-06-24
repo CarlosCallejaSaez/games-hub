@@ -1,6 +1,49 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+const Button = styled.button`
+  margin: 10px;
+  font-size: 16px;
+  padding: 5px 10px;
+`;
+
+const MaskedWord = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+const Timer = styled.p`
+  font-size: 18px;
+  margin-bottom: 10px;
+`;
+
+const Result = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const StyledButton = styled.button`
+  font-size: 16px;
+  margin-right: 10px;
+  padding: 5px 10px;
+`;
+
+const AlphabetButtonsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+`;
 
 const HangmanGame = ({ duration = 120000 }) => {
   const words = ["Casa", "Perro", "Platano", "Ordenador"]; 
@@ -99,59 +142,31 @@ const HangmanGame = ({ duration = 120000 }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleHome}>Back Home Page</button>
-      <p style={styles.maskedWord}>{maskedWord}</p>
-      {renderAlphabetButtons()}
-      <p style={styles.timer}>{getFormattedTime()}</p>
-      {timeUp ? (
-        <p style={styles.result}>You lost!</p>
-      ) : isWordGuessed() ? (
-        <div>
-          <p style={styles.result}>You won!</p>
-          {gameOver ? (
-            <button style={styles.button} onClick={handleRestart}>
-              Restart
-            </button>
-          ) : (
-            <button style={styles.button} onClick={handleSolve}>
-              Solve
-            </button>
-          )}
-        </div>
-      ) : (
-        <div>
-          <button style={styles.button} onClick={handleSolve}>
-            Solve
-          </button>
-          <button style={styles.button} onClick={handleRestart}>
-            Restart
-          </button>
-        </div>
-      )}
-    </div>
+    <Container>
+    <Button onClick={handleHome}>Back Home Page</Button>
+    <MaskedWord>{maskedWord}</MaskedWord>
+    <AlphabetButtonsContainer>{renderAlphabetButtons()}</AlphabetButtonsContainer>
+    <Timer>{getFormattedTime()}</Timer>
+    {timeUp ? (
+      <Result>You lost!</Result>
+    ) : isWordGuessed() ? (
+      <div>
+        <Result>You won!</Result>
+        {gameOver ? (
+          <StyledButton onClick={handleRestart}>Restart</StyledButton>
+        ) : (
+          <StyledButton onClick={handleSolve}>Solve</StyledButton>
+        )}
+      </div>
+    ) : (
+      <div>
+        <StyledButton onClick={handleSolve}>Solve</StyledButton>
+        <StyledButton onClick={handleRestart}>Restart</StyledButton>
+      </div>
+    )}
+  </Container>
   );
 };
 
-const styles = {
-  maskedWord: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    marginBottom: '10px',
-  },
-  timer: {
-    fontSize: '18px',
-    marginBottom: '10px',
-  },
-  result: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-  },
-  button: {
-    fontSize: '16px',
-    marginRight: '10px',
-    padding: '5px 10px',
-  },
-};
 
 export default HangmanGame;

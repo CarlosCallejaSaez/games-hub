@@ -1,12 +1,64 @@
 import React,{useState} from 'react'
 import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+`;
+
+const BackButton = styled.button`
+  align-self: flex-start;
+  margin: 10px;
+`;
+
+const Title = styled.h2`
+  margin-top: 20px;
+`;
+
+const PlayerInfo = styled.p`
+  margin-top: 10px;
+`;
+
+const BoardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const CellButton = styled.button`
+  width: 100px;
+  height: 100px;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+`;
+
+const ResultMessage = styled.p`
+  margin-top: 20px;
+`;
+
+const ResetButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+
 const TicTacToe = () => {
     const [board, setBoard] = useState(Array(9).fill(''));
     const [currentPlayer, setCurrentPlayer] = useState('X');
     const [winner, setWinner] = useState(null);
     const [isDraw, setIsDraw] = useState(false);
 
-    
+
     const navigate = useNavigate();
     const handleHome = () => {
       navigate("/home");
@@ -55,52 +107,24 @@ const TicTacToe = () => {
     };
   
     return (
-      <div style={{ textAlign: 'center' }}>
-        <button onClick={handleHome}>Back Home Page</button>
-        <h2>Tic Tac Toe</h2>
-        {!winner && !isDraw && <p>Current Player: {currentPlayer}</p>}
-        {winner && <p>Winner: {winner}</p>}
-        {isDraw && <p>It's a draw!</p>}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 100px)',
-            gridGap: '10px',
-            justifyContent: 'center',
-          }}
-        >
+      <Container>
+        <BackButton onClick={handleHome}>Back Home Page</BackButton>
+        <Title>Tic Tac Toe</Title>
+        {!winner && !isDraw && <PlayerInfo>Current Player: {currentPlayer}</PlayerInfo>}
+        {winner && <ResultMessage>Winner: {winner}</ResultMessage>}
+        {isDraw && <ResultMessage>It's a draw!</ResultMessage>}
+        <BoardContainer>
           {board.map((cell, index) => (
-            <button
-              key={index}
-              style={{
-                width: '100px',
-                height: '100px',
-                fontSize: '24px',
-                border: '1px solid #ccc',
-                cursor: 'pointer',
-              }}
-              onClick={() => handleCellClick(index)}
-            >
+            <CellButton key={index} onClick={() => handleCellClick(index)}>
               {cell}
-            </button>
+            </CellButton>
           ))}
-        </div>
+        </BoardContainer>
         {(winner || isDraw) && (
-          <button
-            style={{
-              marginTop: '20px',
-              padding: '10px 20px',
-              fontSize: '18px',
-              cursor: 'pointer',
-            }}
-            onClick={resetGame}
-          >
-            Reset Game
-          </button>
+          <ResetButton onClick={resetGame}>Reset Game</ResetButton>
         )}
-      </div>
+      </Container>
     );
   };
   
-
-export default TicTacToe
+  export default TicTacToe;

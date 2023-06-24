@@ -9,6 +9,18 @@ const PageContainer = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Subtitle = styled.h6`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LoginFormContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,7 +82,8 @@ const LoginForm = () => {
   return (
     <PageContainer>
       <LoginFormContainer>
-        <h1>🎮 Games Hub 🎲</h1>
+        <Title>🎮Games Hub🎲</Title>
+        <Subtitle> © Carlos Calleja Sáez</Subtitle>
         <Form onSubmit={handleSubmit}>
           <Label htmlFor="username">User:</Label>
           <Input

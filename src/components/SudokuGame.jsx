@@ -1,6 +1,48 @@
 import React, { useState, useEffect } from "react";
-import Sudoku from "sudoku"; 
+import Sudoku from "sudoku";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+
+const Container = styled.div`
+  text-align: center;
+  margin-top: 20px;
+  width: 100vw;
+`;
+
+const Button = styled.button`
+  margin: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const Table = styled.table`
+  margin: 0 auto;
+`;
+
+const Cell = styled.td`
+  padding: 5px;
+  border: 1px solid black;
+`;
+
+const Input = styled.input`
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  text-align: center;
+`;
+
+const CellValue = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const Message = styled.p`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
 
 const SudokuGame = () => {
   const [board, setBoard] = useState([]);
@@ -71,116 +113,74 @@ const SudokuGame = () => {
     };
 
     return (
-      <td key={index} style={styles.cell}>
+      <Cell key={index}>
         {isEditable ? (
-          <input
+          <Input
             type="number"
             min="1"
             max="9"
             value={cell || ""}
             onChange={handleChange}
-            style={styles.input}
           />
         ) : (
-          <div style={styles.cellValue}>{cell}</div>
+          <CellValue>{cell}</CellValue>
         )}
-      </td>
+      </Cell>
     );
   };
 
   return (
-    <div style={styles.container}>
-      <button onClick={handleHome}>Back Home Page</button>
-      <button onClick={startGame} style={styles.button}>
-        Start Game
-      </button>
-      <table style={styles.table}>
+    <Container>
+      <Button onClick={handleHome}>Back Home Page</Button>
+      <Button onClick={startGame}>Restart Game</Button>
+      <Table>
         <tbody>
           {[...Array(9)].map((_, row) => (
             <tr key={row}>
               {[...Array(9)].map((_, col) =>
-                renderCell(showSolution ? Sudoku.solvepuzzle(board)[row * 9 + col] : board[row * 9 + col], row * 9 + col)
+                renderCell(
+                  showSolution
+                    ? Sudoku.solvepuzzle(board)[row * 9 + col]
+                    : board[row * 9 + col],
+                  row * 9 + col
+                )
               )}
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       {completed && (
         <div>
-          <button
+          <Button
             disabled={!board.every((cell) => cell !== null)}
             onClick={checkSolution}
-            style={styles.button}
           >
             Check Solution
-          </button>
-          <button onClick={completeSudoku} style={styles.button}>
-            Show Solution
-          </button>
-          <button onClick={startGame} style={styles.button}>
-            Start New Game
-          </button>
+          </Button>
+          <Button onClick={completeSudoku}>Show Solution</Button>
+          <Button onClick={startGame}>Start New Game</Button>
         </div>
       )}
       {victory && (
         <div>
-          <p style={styles.message}>Congratulations! You have solved the Sudoku puzzle.</p>
-          <button onClick={startGame} style={styles.button}>
-            Start New Game
-          </button>
+          <Message>Congratulations! You have solved the Sudoku puzzle.</Message>
+          <Button onClick={startGame}>Start New Game</Button>
         </div>
       )}
       {mistake && (
         <div>
-          <p style={styles.message}>Sorry, your solution is incorrect.</p>
-          <button onClick={startGame} style={styles.button}>
-            Try Again
-          </button>
+          <Message>Sorry, your solution is incorrect.</Message>
+          <Button onClick={startGame}>Try Again</Button>
         </div>
       )}
       {!completed && (
         <div>
-          <button onClick={solveSudoku} style={styles.button}>
-            Solve Sudoku
-          </button>
+          <Button onClick={solveSudoku}>Solve Sudoku</Button>
         </div>
       )}
-    </div>
+    </Container>
   );
 };
 
 export default SudokuGame;
 
-const styles = {
-  container: {
-    textAlign: "center",
-    marginTop: 20,
-  },
-  button: {
-    margin: 10,
-    padding: "8px 16px",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  table: {
-    margin: "0 auto",
-  },
-  cell: {
-    padding: 5,
-    border: "1px solid black",
-  },
-  input: {
-    width: 30,
-    height: 30,
-    fontSize: 16,
-    textAlign: "center",
-  },
-  cellValue: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  message: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-};
