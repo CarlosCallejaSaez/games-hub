@@ -59,7 +59,7 @@ const LoginForm = () => {
       localStorage.setItem("user", JSON.stringify(user));
       setLoggedIn(true);
     } else {
-      alert("Credenciales inválidas");
+      alert("Invalid username or password");
     }
   };
 
