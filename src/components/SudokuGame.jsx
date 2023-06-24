@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sudoku from "sudoku"; 
+import { useNavigate } from "react-router-dom";
 
 const SudokuGame = () => {
   const [board, setBoard] = useState([]);
@@ -7,6 +8,11 @@ const SudokuGame = () => {
   const [victory, setVictory] = useState(false);
   const [mistake, setMistake] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
+
+  const navigate = useNavigate();
+  const handleHome = () => {
+    navigate("/home");
+  };
 
   useEffect(() => {
     startGame();
@@ -84,6 +90,7 @@ const SudokuGame = () => {
 
   return (
     <div style={styles.container}>
+      <button onClick={handleHome}>Back Home Page</button>
       <button onClick={startGame} style={styles.button}>
         Start Game
       </button>

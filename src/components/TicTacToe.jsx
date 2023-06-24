@@ -1,10 +1,16 @@
 import React,{useState} from 'react'
-
+import { useNavigate } from "react-router-dom";
 const TicTacToe = () => {
     const [board, setBoard] = useState(Array(9).fill(''));
     const [currentPlayer, setCurrentPlayer] = useState('X');
     const [winner, setWinner] = useState(null);
     const [isDraw, setIsDraw] = useState(false);
+
+    
+    const navigate = useNavigate();
+    const handleHome = () => {
+      navigate("/home");
+    };
   
     const handleCellClick = (index) => {
       if (!board[index] && !winner) {
@@ -50,6 +56,7 @@ const TicTacToe = () => {
   
     return (
       <div style={{ textAlign: 'center' }}>
+        <button onClick={handleHome}>Back Home Page</button>
         <h2>Tic Tac Toe</h2>
         {!winner && !isDraw && <p>Current Player: {currentPlayer}</p>}
         {winner && <p>Winner: {winner}</p>}

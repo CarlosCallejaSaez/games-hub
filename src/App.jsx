@@ -34,6 +34,11 @@ const App = () => {
         element={<ProtectedRoute element={<SudokuGame />} />}
       />
 
+      <Route
+        path="*"
+        element={<ProtectedRoute element={<LoginForm />} />}
+      />
+
       
     </Routes>
   );

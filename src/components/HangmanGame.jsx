@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const HangmanGame = ({ duration = 120000 }) => {
   const words = ["Casa", "Perro", "Platano", "Ordenador"]; 
@@ -8,6 +9,11 @@ const HangmanGame = ({ duration = 120000 }) => {
   const [timeUp, setTimeUp] = useState(false);
   const [remainingTime, setRemainingTime] = useState(duration);
   const [gameOver, setGameOver] = useState(false);
+
+  const navigate = useNavigate();
+  const handleHome = () => {
+    navigate("/home");
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -94,6 +100,7 @@ const HangmanGame = ({ duration = 120000 }) => {
 
   return (
     <div>
+      <button onClick={handleHome}>Back Home Page</button>
       <p style={styles.maskedWord}>{maskedWord}</p>
       {renderAlphabetButtons()}
       <p style={styles.timer}>{getFormattedTime()}</p>
