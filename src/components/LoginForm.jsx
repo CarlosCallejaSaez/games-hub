@@ -1,6 +1,30 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import styled from "styled-components";
+import CustomModal from "./CustomModal";
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const AboutMeButton = styled.button`
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(90deg, rgba(199,141,160,0.8100490196078431) 33%, rgba(148,218,233,1) 100%);
+  }
+`;
 
 const PageContainer = styled.div`
   position: absolute;
@@ -60,6 +84,15 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,6 +114,11 @@ const LoginForm = () => {
 
   return (
     <PageContainer>
+      <ButtonContainer>
+      <AboutMeButton onClick={openModal}>About Me!</AboutMeButton>
+      </ButtonContainer>
+      <CustomModal open={modalOpen} onClose={closeModal} />
+      <br/>
       <LoginFormContainer>
         <Title>🎮Games Hub🎲</Title>
         <Subtitle> © Carlos Calleja Sáez</Subtitle>
