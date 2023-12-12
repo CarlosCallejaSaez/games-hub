@@ -2,6 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
+import VideoComponent from './VideoComponent';
+
+
+const CenteredContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+  width: 100vw;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -46,6 +57,15 @@ const AlphabetButtonsContainer = styled.div`
 `;
 
 const HangmanGame = ({ duration = 120000 }) => {
+
+
+  const [videoEnded, setVideoEnded] = useState(false);
+
+  const handleVideoEnded = () => {
+    setVideoEnded(true);
+  };
+
+
   const words = ["Casa", "Perro", "Platano", "Ordenador"]; 
   const [word, setWord] = useState('');
   const [correctGuesses, setCorrectGuesses] = useState([]);
@@ -142,31 +162,39 @@ const HangmanGame = ({ duration = 120000 }) => {
   };
 
   return (
-    <Container>
-    <Button onClick={handleHome}>Back Home Page</Button>
-    <MaskedWord>{maskedWord}</MaskedWord>
-    <AlphabetButtonsContainer>{renderAlphabetButtons()}</AlphabetButtonsContainer>
-    <Timer>{getFormattedTime()}</Timer>
-    {timeUp ? (
-      <Result>You lost!</Result>
-    ) : isWordGuessed() ? (
-      <div>
-        <Result>You won!</Result>
-        {gameOver ? (
-          <StyledButton onClick={handleRestart}>Restart</StyledButton>
-        ) : (
-          <StyledButton onClick={handleSolve}>Solve</StyledButton>
-        )}
-      </div>
-    ) : (
-      <div>
-        <StyledButton onClick={handleSolve}>Solve</StyledButton>
-        <StyledButton onClick={handleRestart}>Restart</StyledButton>
-      </div>
-    )}
-  </Container>
+    <CenteredContainer>
+      {!videoEnded ? (
+        <VideoComponent
+          videoUrl="/public/hangman.mp4"
+          onVideoEnded={handleVideoEnded}
+        />
+      ) : (
+        <CenteredContainer>
+          <Button onClick={handleHome}>Back Home Page</Button>
+          <MaskedWord>{maskedWord}</MaskedWord>
+          <AlphabetButtonsContainer>{renderAlphabetButtons()}</AlphabetButtonsContainer>
+          <Timer>{getFormattedTime()}</Timer>
+          {timeUp ? (
+            <Result>You lost!</Result>
+          ) : isWordGuessed() ? (
+            <Container>
+              <Result>You won!</Result>
+              {gameOver ? (
+                <StyledButton onClick={handleRestart}>Restart</StyledButton>
+              ) : (
+                <StyledButton onClick={handleSolve}>Solve</StyledButton>
+              )}
+            </Container>
+          ) : (
+            <Container>
+              <StyledButton onClick={handleSolve}>Solve</StyledButton>
+              <StyledButton onClick={handleRestart}>Restart</StyledButton>
+            </Container>
+          )}
+        </CenteredContainer>
+      )}
+   </CenteredContainer>
   );
 };
-
 
 export default HangmanGame;

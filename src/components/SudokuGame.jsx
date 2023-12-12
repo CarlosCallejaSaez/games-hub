@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sudoku from "sudoku";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import VideoComponent from "./VideoComponent";
 
 
 const Container = styled.div`
@@ -45,6 +46,16 @@ const Message = styled.p`
 
 
 const SudokuGame = () => {
+
+
+  
+  const [videoEnded, setVideoEnded] = useState(false);
+
+  const handleVideoEnded = () => {
+    setVideoEnded(true);
+  };
+
+
   const [board, setBoard] = useState([]);
   const [completed, setCompleted] = useState(false);
   const [victory, setVictory] = useState(false);
@@ -130,7 +141,14 @@ const SudokuGame = () => {
   };
 
   return (
-    <Container>
+    <div>
+      {!videoEnded ? (
+        <VideoComponent
+          videoUrl="/public/sudoku.mp4"
+          onVideoEnded={handleVideoEnded}
+        />
+      ) :
+   ( <Container>
       <Button onClick={handleHome}>Back Home Page</Button>
       <Button onClick={startGame}>Restart Game</Button>
       <Table>
@@ -178,7 +196,8 @@ const SudokuGame = () => {
           <Button onClick={solveSudoku}>Solve Sudoku</Button>
         </div>
       )}
-    </Container>
+    </Container>)}
+    </div>
   );
 };
 

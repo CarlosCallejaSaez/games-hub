@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
+import VideoComponent from './VideoComponent';
 
 const Container = styled.div`
   display: flex;
@@ -53,6 +54,15 @@ const ResetButton = styled.button`
 
 
 const TicTacToe = () => {
+
+  const [videoEnded, setVideoEnded] = useState(false);
+
+  const handleVideoEnded = () => {
+    setVideoEnded(true);
+  };
+
+
+
     const [board, setBoard] = useState(Array(9).fill(''));
     const [currentPlayer, setCurrentPlayer] = useState('X');
     const [winner, setWinner] = useState(null);
@@ -107,7 +117,14 @@ const TicTacToe = () => {
     };
   
     return (
-      <Container>
+      <div>
+      {!videoEnded ? (
+        <VideoComponent
+          videoUrl="/public/tic-tac-toe.mp4"
+          onVideoEnded={handleVideoEnded}
+        />
+      ) :
+      (<Container>
         <BackButton onClick={handleHome}>Back Home Page</BackButton>
         <Title>Tic Tac Toe</Title>
         {!winner && !isDraw && <PlayerInfo>Current Player: {currentPlayer}</PlayerInfo>}
@@ -123,7 +140,8 @@ const TicTacToe = () => {
         {(winner || isDraw) && (
           <ResetButton onClick={resetGame}>Reset Game</ResetButton>
         )}
-      </Container>
+      </Container>)}
+      </div>
     );
   };
   

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import tictactoeImage from "../assets/tictactoe.gif";
+import tictactoeImage from "../assets/tictactoe.webp";
 import hangmanImage from "../assets/hangman.gif";
 import sudokuImage from "../assets/sudoku.gif";
 import styled from "styled-components";
