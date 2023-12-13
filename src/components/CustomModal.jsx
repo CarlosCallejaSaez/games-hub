@@ -26,13 +26,16 @@ const CustomModal = ({ open, onClose }) => {
           padding: '20px',
         }}
       >
-        <div className="modal">
+       <div className="modal" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
           <Typography variant="h4" align="center">
+          
             🙋‍♂️ Hi! My name is Carlos Carlos Calleja Sáez
           </Typography>
           <Typography variant="body1" align="center">
-            Member of RockTheCode 🤘
+            Student of RockTheCode 🤘
           </Typography>
+          <img src='/public/me.jpg'/>
           <Box
             sx={{
               display: 'flex',

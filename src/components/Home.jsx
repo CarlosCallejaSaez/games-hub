@@ -61,7 +61,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.setItem("user", "");
+    sessionStorage.removeItem("user");
     navigate("/");
   };
 

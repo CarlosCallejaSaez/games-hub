@@ -101,8 +101,8 @@ const LoginForm = () => {
         username: "carlos",
         name: "Carlos",
       };
-      localStorage.setItem("user", JSON.stringify(user));
-      setLoggedIn(true);
+      sessionStorage.setItem("user", JSON.stringify(user));
+    setLoggedIn(true);
     } else {
       alert("Invalid username or password");
     }
