@@ -35,7 +35,6 @@ const CustomModal = ({ open, onClose }) => {
           <Typography variant="body1" align="center">
             Student of RockTheCode 🤘
           </Typography>
-          <img src='/public/me.jpg'/>
           <Box
             sx={{
               display: 'flex',
