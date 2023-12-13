@@ -101,8 +101,10 @@ const LoginForm = () => {
         username: "carlos",
         name: "Carlos",
       };
-      sessionStorage.setItem("user", JSON.stringify(user));
-    setLoggedIn(true);
+      try {
+        sessionStorage.setItem("user", JSON.stringify(user));
+        setLoggedIn(true);
+      } catch (err) { console.log(err); }
     } else {
       alert("Invalid username or password");
     }
@@ -115,10 +117,10 @@ const LoginForm = () => {
   return (
     <PageContainer>
       <ButtonContainer>
-      <AboutMeButton onClick={openModal}>About Me!</AboutMeButton>
+        <AboutMeButton onClick={openModal}>About Me!</AboutMeButton>
       </ButtonContainer>
       <CustomModal open={modalOpen} onClose={closeModal} />
-      <br/>
+      <br />
       <LoginFormContainer>
         <Title>🎮Games Hub🎲</Title>
         <Subtitle> © Carlos Calleja Sáez</Subtitle>

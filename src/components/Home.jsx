@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import tictactoeImage from "../assets/tictactoe.webp";
 import hangmanImage from "../assets/hangman.gif";
@@ -61,8 +61,11 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    sessionStorage.removeItem("user");
-    navigate("/");
+    try {
+      sessionStorage.removeItem("user");
+      navigate("/");
+    }
+    catch (error) { console.log(error) }
   };
 
   return (
