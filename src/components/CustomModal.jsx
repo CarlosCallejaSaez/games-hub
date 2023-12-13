@@ -35,6 +35,9 @@ const CustomModal = ({ open, onClose }) => {
           <Typography variant="body1" align="center">
             Student of RockTheCode 🤘
           </Typography>
+          <Typography variant="body1" align="center">
+          ⚠⚠ Credentials ⚠⚠   user: carlos  password: rockthecode
+          </Typography>
           <Box
             sx={{
               display: 'flex',
