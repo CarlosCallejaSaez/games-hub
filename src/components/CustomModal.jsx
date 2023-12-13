@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Typography, Button, Box } from '@mui/material';
 
 const CustomModal = ({ open, onClose }) => {
-  const [audio] = useState(new Audio("../assets/Tetris.mp3"));
+  const [audio] = useState(new Audio("/public/Tetris.mp3"));
 
   useEffect(() => {
     audio.play();
