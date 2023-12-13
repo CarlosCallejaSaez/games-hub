@@ -30,7 +30,7 @@ const CustomModal = ({ open, onClose }) => {
 
           <Typography variant="h4" align="center">
           
-            🙋‍♂️ Hi! My name is Carlos Carlos Calleja Sáez
+            🙋‍♂️ Hi! My name is Carlos Calleja Sáez
           </Typography>
           <Typography variant="body1" align="center">
             Student of RockTheCode 🤘
