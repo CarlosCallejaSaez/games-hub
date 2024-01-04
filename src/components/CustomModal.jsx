@@ -2,16 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Typography, Button, Box } from '@mui/material';
 
 const CustomModal = ({ open, onClose }) => {
-  const [audio] = useState(new Audio("/public/Tetris.mp3"));
-
-  useEffect(() => {
-    audio.play();
-
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-    };
-  }, [audio]);
+  
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -35,9 +26,7 @@ const CustomModal = ({ open, onClose }) => {
           <Typography variant="body1" align="center">
             Student of RockTheCode 🤘
           </Typography>
-          <Typography variant="body1" align="center">
-          ⚠⚠ Credentials ⚠⚠   user: carlos  password: rockthecode
-          </Typography>
+         
           <Box
             sx={{
               display: 'flex',

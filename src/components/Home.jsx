@@ -4,6 +4,8 @@ import tictactoeImage from "../assets/tictactoe.webp";
 import hangmanImage from "../assets/hangman.gif";
 import sudokuImage from "../assets/sudoku.gif";
 import styled from "styled-components";
+import LogoutButton from "./LogoutButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Container = styled.div`
@@ -47,11 +49,7 @@ const LinkImage = styled.img`
   }
 `;
 
-const LogoutButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-`;
+
 
 const Home = () => {
 
@@ -60,22 +58,18 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    try {
-      sessionStorage.removeItem("user");
-      navigate("/");
-    }
-    catch (error) { console.log(error) }
-  };
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
     <Container>
       <HomeContainer>
         <Header>
-          <h1>Welcome Player!!</h1>
+          <h1>Welcome {user.name}</h1>
+          <p>{user.email}</p>
+
         </Header>
 
-        <LogoutButton onClick={handleLogout}>Log out</LogoutButton>
+       <LogoutButton/>
 
         <LinksContainer>
           <NavLink to="/tictactoe">
