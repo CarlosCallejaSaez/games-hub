@@ -120,7 +120,7 @@ const TicTacToe = () => {
       <div>
       {!videoEnded ? (
         <VideoComponent
-          videoUrl="/public/tic-tac-toe.mp4"
+          videoUrl="../assets/tic-tac-toe.mp4"
           onVideoEnded={handleVideoEnded}
         />
       ) :

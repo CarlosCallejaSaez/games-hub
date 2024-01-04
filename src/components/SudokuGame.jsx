@@ -144,7 +144,7 @@ const SudokuGame = () => {
     <div>
       {!videoEnded ? (
         <VideoComponent
-          videoUrl="/public/sudoku.mp4"
+          videoUrl="../assets/sudoku.mp4"
           onVideoEnded={handleVideoEnded}
         />
       ) :
