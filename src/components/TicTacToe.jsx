@@ -57,6 +57,8 @@ const TicTacToe = () => {
 
   const [videoEnded, setVideoEnded] = useState(false);
 
+  const youtubeVideoUrl = 'https://www.youtube.com/watch?v=jcyPtBaDg1Y';
+
   const handleVideoEnded = () => {
     setVideoEnded(true);
   };
@@ -119,10 +121,7 @@ const TicTacToe = () => {
     return (
       <div>
       {!videoEnded ? (
-        <VideoComponent
-          videoUrl="../assets/tic-tac-toe.mp4"
-          onVideoEnded={handleVideoEnded}
-        />
+         <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
       ) :
       (<Container>
         <BackButton onClick={handleHome}>Back Home Page</BackButton>

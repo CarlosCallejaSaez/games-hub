@@ -14,10 +14,12 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.6",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.0",
     "react-sudoku": "^1.0.9",
+    "react-youtube": "^10.1.0",
     "styled-components": "^6.0.0-rc.5",
     "sudoku": "^0.0.3"
   },

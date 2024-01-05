@@ -58,8 +58,14 @@ const AlphabetButtonsContainer = styled.div`
 
 const HangmanGame = ({ duration = 120000 }) => {
 
+  
+
 
   const [videoEnded, setVideoEnded] = useState(false);
+
+
+
+  const youtubeVideoUrl = 'https://www.youtube.com/watch?v=831_CEyd3o0';
 
   const handleVideoEnded = () => {
     setVideoEnded(true);
@@ -164,10 +170,7 @@ const HangmanGame = ({ duration = 120000 }) => {
   return (
     <CenteredContainer>
       {!videoEnded ? (
-        <VideoComponent
-          videoUrl="/public/hangman.mp4"
-          onVideoEnded={handleVideoEnded}
-        />
+        <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
       ) : (
         <CenteredContainer>
           <Button onClick={handleHome}>Back Home Page</Button>

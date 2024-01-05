@@ -51,10 +51,11 @@ const SudokuGame = () => {
   
   const [videoEnded, setVideoEnded] = useState(false);
 
+  const youtubeVideoUrl = 'https://www.youtube.com/watch?v=uDNaFdZXpF0';
+
   const handleVideoEnded = () => {
     setVideoEnded(true);
   };
-
 
   const [board, setBoard] = useState([]);
   const [completed, setCompleted] = useState(false);
@@ -143,10 +144,7 @@ const SudokuGame = () => {
   return (
     <div>
       {!videoEnded ? (
-        <VideoComponent
-          videoUrl="../assets/sudoku.mp4"
-          onVideoEnded={handleVideoEnded}
-        />
+        <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
       ) :
    ( <Container>
       <Button onClick={handleHome}>Back Home Page</Button>
