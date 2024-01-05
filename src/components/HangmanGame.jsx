@@ -169,8 +169,18 @@ const HangmanGame = ({ duration = 120000 }) => {
 
   return (
     <CenteredContainer>
-      {!videoEnded ? (
+      {!videoEnded ? (<>
+        <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '20px'
+  }}>
+        <button onClick={()=>setVideoEnded(true)}>Skip Intro Video</button>
+        </div>
         <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
+       
+        </>
       ) : (
         <CenteredContainer>
           <Button onClick={handleHome}>Back Home Page</Button>

@@ -143,9 +143,19 @@ const SudokuGame = () => {
 
   return (
     <div>
-      {!videoEnded ? (
+      {!videoEnded ? (<>
+        <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '20px'
+  }}>
+        <button onClick={()=>setVideoEnded(true)}>Skip Intro Video</button>
+        </div>
         <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
-      ) :
+        
+        </>
+      ) : 
    ( <Container>
       <Button onClick={handleHome}>Back Home Page</Button>
       <Button onClick={startGame}>Restart Game</Button>

@@ -120,9 +120,19 @@ const TicTacToe = () => {
   
     return (
       <div>
-      {!videoEnded ? (
-         <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
-      ) :
+     {!videoEnded ? (<>
+      <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '20px'
+  }}>
+        <button onClick={()=>setVideoEnded(true)}>Skip Intro Video</button>
+        </div>
+        <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
+        
+        </>
+      ) : 
       (<Container>
         <BackButton onClick={handleHome}>Back Home Page</BackButton>
         <Title>Tic Tac Toe</Title>
