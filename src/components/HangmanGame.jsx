@@ -165,7 +165,7 @@ const HangmanGame = ({ duration = 120000 }) => {
     <CenteredContainer>
       {!videoEnded ? (
         <VideoComponent
-          videoUrl="../assets/hangman.mp4"
+          videoUrl="/public/hangman.mp4"
           onVideoEnded={handleVideoEnded}
         />
       ) : (
