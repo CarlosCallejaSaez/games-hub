@@ -64,8 +64,11 @@ const Home = () => {
     <Container>
       <HomeContainer>
         <Header>
-          <h1>Welcome {user.name}</h1>
-          <p>{user.email}</p>
+        {user && (<>
+        <h1>Welcome {user.name}</h1>
+          <p>{user.email}</p>.
+          </>)}
+          
 
         </Header>
 

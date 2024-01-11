@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import CustomModal from "./CustomModal";
 
+
 const LoginFormContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,6 +85,14 @@ const Login = () => {
         <LoginButton onClick={handleLogin}>Log In</LoginButton>
         <AboutMeButton onClick={openAboutMeModal}>About Me</AboutMeButton>
       </LoginFormContainer>
+
+      <p style={{ textAlign: 'center', marginTop: '50px' }}>
+      for this demo version, if you don't want to log in, you can click the next button to go to the home page
+    </p>
+
+<div style={{ textAlign: 'center', marginTop: '50px' }} >
+      <button style={{ width: '100px', height:'75px', backgroundColor:"aquamarine" }}  onClick={()=>navigate("/home")}>Home</button>
+      </div>
 
       <CustomModal open={aboutMeModalOpen} onClose={closeAboutMeModal}>
         <h2>About Me</h2>
