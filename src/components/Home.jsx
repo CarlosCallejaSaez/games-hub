@@ -8,12 +8,16 @@ import LogoutButton from "./LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  background-image: url(./cyberpunk.gif); 
+  background-size: cover; 
+  background-position: center; 
 `;
 
 const HomeContainer = styled.div`
@@ -72,8 +76,8 @@ const Home = () => {
 
         </Header>
 
-       <LogoutButton/>
-
+       <LogoutButton />
+     
         <LinksContainer>
           <NavLink to="/tictactoe">
             <LinkImage src={tictactoeImage} alt="TicTacToe" />

@@ -1,44 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Modal, Typography, Button, Box } from '@mui/material';
 
 const CustomModal = ({ open, onClose }) => {
-  
-
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box
         sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          border: '2px solid #000',
+          boxShadow: 24,
+          p: 4,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100%',
-          background: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%)',
-          padding: '20px',
+          backgroundImage: 'url(./cyberpunk.gif)', 
+          backgroundSize: 'cover', 
         }}
       >
-       <div className="modal" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-
-          <Typography variant="h4" align="center">
-          
-            🙋‍♂️ Hi! My name is Carlos Calleja Sáez
-          </Typography>
-          <Typography variant="body1" align="center">
-            Student of RockTheCode 🤘
-          </Typography>
-         
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: '20px',
-            }}
-          >
-            <Button variant="contained" onClick={onClose}>
-              Close
-            </Button>
-          </Box>
-        </div>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          🙋‍♂️ Hi! My name is Carlos Calleja Sáez
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Student of RockTheCode 🤘
+        </Typography>
+        <Button onClick={onClose} sx={{ mt: 2 }} variant="contained">
+          Close
+        </Button>
       </Box>
     </Modal>
   );

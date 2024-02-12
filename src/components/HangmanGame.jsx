@@ -1,212 +1,87 @@
-
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
-import styled from 'styled-components';
-import VideoComponent from './VideoComponent';
+import { Box, Button, Input, Text, VStack, Progress, useToast, Flex } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom'; 
 
+const HangmanGame = () => {
+  const [guess, setGuess] = useState('');
+  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [wrongGuesses, setWrongGuesses] = useState([]);
+  const [selectedWord, setSelectedWord] = useState('');
 
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; 
-  width: 100vw;
-`;
+  const wordsToGuess = ['example', 'react', 'chakra', 'javascript', 'coding'];
+  const maxWrongAttempts = 6;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-`;
-
-const Button = styled.button`
-  margin: 10px;
-  font-size: 16px;
-  padding: 5px 10px;
-`;
-
-const MaskedWord = styled.p`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-const Timer = styled.p`
-  font-size: 18px;
-  margin-bottom: 10px;
-`;
-
-const Result = styled.p`
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-const StyledButton = styled.button`
-  font-size: 16px;
-  margin-right: 10px;
-  padding: 5px 10px;
-`;
-
-const AlphabetButtonsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 10px;
-`;
-
-const HangmanGame = ({ duration = 120000 }) => {
-
-  
-
-
-  const [videoEnded, setVideoEnded] = useState(false);
-
-
-
-  const youtubeVideoUrl = 'https://www.youtube.com/watch?v=831_CEyd3o0';
-
-  const handleVideoEnded = () => {
-    setVideoEnded(true);
-  };
-
-
-  const words = ["Casa", "Perro", "Platano", "Ordenador"]; 
-  const [word, setWord] = useState('');
-  const [correctGuesses, setCorrectGuesses] = useState([]);
-  const [timeUp, setTimeUp] = useState(false);
-  const [remainingTime, setRemainingTime] = useState(duration);
-  const [gameOver, setGameOver] = useState(false);
-
-  const navigate = useNavigate();
-  const handleHome = () => {
-    navigate("/home");
-  };
+  const toast = useToast();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setTimeUp(true);
-      setGameOver(true);
-    }, duration);
-
-    const interval = setInterval(() => {
-      setRemainingTime((prevTime) => prevTime - 1000);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeout);
-      clearInterval(interval);
-    };
+    resetGame();
   }, []);
 
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    setWord(words[randomIndex].toUpperCase());
-  }, []);
+  const resetGame = () => {
+    const randomIndex = Math.floor(Math.random() * wordsToGuess.length);
+    setSelectedWord(wordsToGuess[randomIndex].toUpperCase());
+    setGuessedLetters([]);
+    setWrongGuesses([]);
+  };
 
-  const handleGuess = (letter) => {
-    if (word.includes(letter)) {
-      setCorrectGuesses([...correctGuesses, letter]);
+  const handleGuess = () => {
+    if (guess.trim() === '') return;
+
+    if (!selectedWord.includes(guess.toUpperCase())) {
+      if (!wrongGuesses.includes(guess.toUpperCase())) {
+        setWrongGuesses(prev => [...prev, guess.toUpperCase()]);
+      } else {
+        toast({
+          title: 'Letter already guessed!',
+          status: 'warning',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } else {
+      if (!guessedLetters.includes(guess.toUpperCase())) {
+        setGuessedLetters(prev => [...prev, guess.toUpperCase()]);
+      }
     }
-  };
-
-  const isLetterGuessed = (letter) => correctGuesses.includes(letter);
-
-  const isWordGuessed = () => {
-    return word.split('').every((letter) => isLetterGuessed(letter));
-  };
-
-  const handleSolve = () => {
-    setCorrectGuesses(word.split(''));
-    setGameOver(true);
-  };
-
-  const handleRestart = () => {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    setWord(words[randomIndex].toUpperCase());
-    setCorrectGuesses([]);
-    setTimeUp(false);
-    setRemainingTime(duration);
-    setGameOver(false);
-  };
-
-  const renderAlphabetButtons = () => {
-    const startCharCode = 'A'.charCodeAt(0);
-    const endCharCode = 'Z'.charCodeAt(0);
-    const alphabetButtons = [];
-
-    for (let charCode = startCharCode; charCode <= endCharCode; charCode++) {
-      const letter = String.fromCharCode(charCode);
-      const isGuessed = isLetterGuessed(letter);
-
-      alphabetButtons.push(
-        <button
-          key={letter}
-          onClick={() => handleGuess(letter)}
-          disabled={isGuessed || gameOver}
-        >
-          {letter}
-        </button>
-      );
-    }
-
-    return alphabetButtons;
-  };
-
-  const maskedWord = word
-    .split('')
-    .map((letter) => (isLetterGuessed(letter) ? letter : '_'))
-    .join(' ');
-
-  const getFormattedTime = () => {
-    const minutes = Math.floor(remainingTime / 60000);
-    const seconds = Math.floor((remainingTime % 60000) / 1000);
-    return `${minutes.toString().padStart(2, '0')}:${seconds
-      .toString()
-      .padStart(2, '0')}`;
+    setGuess('');
   };
 
   return (
-    <CenteredContainer>
-      {!videoEnded ? (<>
-        <div style={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '20px'
-  }}>
-        <button onClick={()=>setVideoEnded(true)}>Skip Intro Video</button>
-        </div>
-        <VideoComponent videoUrl={youtubeVideoUrl} onVideoEnded={handleVideoEnded} />
-       
-        </>
-      ) : (
-        <CenteredContainer>
-          <Button onClick={handleHome}>Back Home Page</Button>
-          <MaskedWord>{maskedWord}</MaskedWord>
-          <AlphabetButtonsContainer>{renderAlphabetButtons()}</AlphabetButtonsContainer>
-          <Timer>{getFormattedTime()}</Timer>
-          {timeUp ? (
-            <Result>You lost!</Result>
-          ) : isWordGuessed() ? (
-            <Container>
-              <Result>You won!</Result>
-              {gameOver ? (
-                <StyledButton onClick={handleRestart}>Restart</StyledButton>
-              ) : (
-                <StyledButton onClick={handleSolve}>Solve</StyledButton>
-              )}
-            </Container>
-          ) : (
-            <Container>
-              <StyledButton onClick={handleSolve}>Solve</StyledButton>
-              <StyledButton onClick={handleRestart}>Restart</StyledButton>
-            </Container>
-          )}
-        </CenteredContainer>
-      )}
-   </CenteredContainer>
+    <Flex
+      height="100vh"
+      width="100vw"
+      justifyContent="center"
+      alignItems="center"
+      bgImage="url('./cyberpunk.gif')" 
+      bgSize="cover"
+      bgPosition="center"
+    >
+      <VStack spacing={4} m="20px" bg="whiteAlpha.800" p={5} borderRadius="md" boxShadow="xl" width="100vw">
+        <Text fontSize="2xl">Hangman Game</Text>
+        <Progress value={(wrongGuesses.length / maxWrongAttempts) * 100} width="90%" hasStripe isAnimated colorScheme="pink"/>
+        <Text fontSize="md">{`Attempts: ${wrongGuesses.length} / ${maxWrongAttempts}`}</Text>
+        <Box>
+          {selectedWord.split('').map((letter, index) => (
+            <Text as="span" key={index} fontSize="xl" mx={1}>
+              {guessedLetters.includes(letter) ? letter : '_'}
+            </Text>
+          ))}
+        </Box>
+        <Input
+          placeholder="Guess a letter"
+          value={guess}
+          onChange={e => setGuess(e.target.value.toUpperCase())}
+          maxLength={1}
+          width="200px"
+        />
+        <Button colorScheme="teal" onClick={handleGuess} isDisabled={wrongGuesses.length >= maxWrongAttempts}>Guess</Button>
+        <Button colorScheme="orange" onClick={resetGame}>New Word</Button>
+        <Button colorScheme="blue" onClick={() => navigate('/home')}>Go Home Page</Button>
+        <Text>Wrong guesses: {wrongGuesses.join(', ')}</Text>
+        {wrongGuesses.length >= maxWrongAttempts && <Text color="red.500">Game Over. The word was: {selectedWord}</Text>}
+      </VStack>
+    </Flex>
   );
 };
 

@@ -5,13 +5,14 @@ import TicTacToe from "./components/TicTacToe";
 import HangmanGame from "./components/HangmanGame";
 import SudokuGame from "./components/SudokuGame";
 import Login from "./components/Login";
+import { ChakraProvider } from '@chakra-ui/react';
 
 
 const App = () => {
   
 
   return (
-
+    <ChakraProvider>
     <Routes>
        <Route path="/" element={<Login/>}  />
       <Route path="/home" element={<Home />}  />
@@ -32,7 +33,7 @@ const App = () => {
 
       
     </Routes>
-    
+    </ChakraProvider>
   );
 };
 

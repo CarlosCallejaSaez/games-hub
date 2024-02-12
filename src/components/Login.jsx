@@ -10,10 +10,16 @@ const LoginFormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top:30vh;
- 
- 
   
+  background-image: url('./cyberpunk.gif');
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 `;
 
 const LoginButton = styled.button`
@@ -51,6 +57,8 @@ const Title = styled.h2`
   font-size: 28px;
   margin-bottom: 20px;
   color: #2c3e50;
+  background-color: rgba(244, 236, 240, 0.7)
+  
 `;
 
 const Login = () => {
@@ -82,22 +90,20 @@ const Login = () => {
     <>
       <LoginFormContainer>
         <Title> 🎲 Carlos Games Hub 🎲</Title>
-        <LoginButton onClick={handleLogin}>Log In</LoginButton>
-        <AboutMeButton onClick={openAboutMeModal}>About Me</AboutMeButton>
-      </LoginFormContainer>
-
-      <p style={{ textAlign: 'center', marginTop: '50px' }}>
+        <Title style={{ textAlign: 'center', marginTop: '50px' }}>
       for this demo version, if you don't want to log in, you can click the next button to go to the home page
-    </p>
+    </Title>
 
 <div style={{ textAlign: 'center', marginTop: '50px' }} >
       <button style={{ width: '100px', height:'75px', backgroundColor:"aquamarine" }}  onClick={()=>navigate("/home")}>Home</button>
       </div>
 
-      <CustomModal open={aboutMeModalOpen} onClose={closeAboutMeModal}>
-        <h2>About Me</h2>
-        <p>This is a brief description of who I am.</p>
-      </CustomModal>
+        <LoginButton onClick={handleLogin}>Log In</LoginButton>
+        
+      </LoginFormContainer>
+
+  
+     
     </>
   );
 };
